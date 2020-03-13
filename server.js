@@ -8,8 +8,8 @@ const app = express();
 
 // add an endpoint for the get request
 // -> this takes an arrow function with a request and response object
-// -> add a response, for this request
-app.get('/', (req, res) => res.send('Hello'));
+// -> add a response, for this request (we will be sending a json object as a response)
+app.get('/', (req, res) => res.json({ msg: 'Welcome to the ContactKeeper API' }));
 
 // variable for the port, used for production or for development
 const PORT = process.env.PORT || 5000;
