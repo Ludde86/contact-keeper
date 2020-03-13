@@ -16,5 +16,9 @@
 		"express-validator": "^6.4.0",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^5.9.4"
+	},
+	"devDependencies": {
+		"concurrently": "^5.1.0",
+		"nodemon": "^2.0.2"
 	}
 }
