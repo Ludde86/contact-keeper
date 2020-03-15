@@ -14,9 +14,9 @@ const app = express();
 app.get('/', (req, res) => res.json({ msg: 'Welcome to the ContactKeeper API' }));
 
 // bring in (define) route components
-express.use('/api/users', require('./routes/users'));
-express.use('/api/contacts', require('./routes/contacts'));
-express.use('/api/auth', require('./routes/auth'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/contacts', require('./routes/contacts'));
+app.use('/api/auth', require('./routes/auth'));
 
 // variable for the port, used for production or for development
 const PORT = process.env.PORT || 5000;
