@@ -13,6 +13,11 @@ const app = express();
 // -> add a response, for this request (we will be sending a json object as a response)
 app.get('/', (req, res) => res.json({ msg: 'Welcome to the ContactKeeper API' }));
 
+// bring in (define) route components
+app.use('/api/users', require('./routes/users'));
+app.use('/api/contacts', require('./routes/contacts'));
+app.use('/api/auth', require('./routes/auth'));
+
 // variable for the port, used for production or for development
 const PORT = process.env.PORT || 5000;
 
