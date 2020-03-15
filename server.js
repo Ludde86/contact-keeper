@@ -1,4 +1,6 @@
 // entry point to our backend
+// we need ta have some endpoints, that our application can hit
+// -> like register an user, login user, get all contacs
 
 // create basic express server
 const express = require('express');
