@@ -25,6 +25,7 @@ const connectDB = async () => {
 		console.log('MangoDB Connected...');
 	} catch (error) {
 		console.log(error.message);
+		process.exit(1); // 1 -> exit with failure
 	}
 };
 
