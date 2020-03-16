@@ -5,8 +5,14 @@
 // create basic express server
 const express = require('express');
 
+// here we bring in the connection to the database
+const connectDB = require('./config/db');
+
 // initialize express
 const app = express();
+
+// connect database
+connectDB();
 
 // add an endpoint for the get request
 // -> this takes an arrow function with a request and response object
