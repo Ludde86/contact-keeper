@@ -11,6 +11,9 @@ const connectDB = require('./config/db');
 // initialize express
 const app = express();
 
+// connect database
+connectDB();
+
 // add an endpoint for the get request
 // -> this takes an arrow function with a request and response object
 // -> add a response, for this request (we will be sending a json object as a response)
