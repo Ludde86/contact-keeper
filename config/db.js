@@ -14,3 +14,5 @@ const connectDB = () => {
 		process.exit(1); // 1 -> exit with failure
 	});
 };
+
+module.exports = connectDB;
