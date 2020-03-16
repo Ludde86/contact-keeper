@@ -7,15 +7,25 @@ const config = require('config');
 // initialize a variable and grab the mango uri (global variable)
 const db = config.get('mongoURI');
 
-// mangoos returns promises
-const connectDB = () => {
-	mongoose
-		.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-		.then(() => console.log('MangoDB connected'))
-		.catch((err) => {
-			console.log(err.message);
-			process.exit(1); // 1 -> exit with failure
-		});
+// * mangoos returns promises *
+// const connectDB = () => {
+// 	mongoose
+// 		.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+// 		.then(() => console.log('MangoDB connected'))
+// 		.catch((err) => {
+// 			console.log(err.message);
+// 			process.exit(1); // 1 -> exit with failure
+// 		});
+// };
+
+// * mangoos returns promises, with sync await *
+const connectDB = async () => {
+	try {
+		await mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true });
+		console.log('MangoDB Connected...');
+	} catch (error) {
+		console.log(error.message);
+	}
 };
 
 module.exports = connectDB;
