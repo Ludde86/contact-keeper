@@ -14,6 +14,10 @@ const app = express();
 // connect database
 connectDB();
 
+// initialize middleware for
+// -> use express to accept json data (we can now accept the body data in our request methods)
+app.use(express.json({ extended: false }));
+
 // add an endpoint for the get request
 // -> this takes an arrow function with a request and response object
 // -> add a response, for this request (we will be sending a json object as a response)
