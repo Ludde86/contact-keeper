@@ -11,8 +11,11 @@ const User = require('../models/User');
 // @desc    Register a user
 // @access  Public
 router.post('/', (req, res) => {
+	// '/' goes to '/api/users' -> this file get forwarded to server.js app.use('/api/users', require('./routes/users'))
 	// res.send('Register a user');
 	res.send(req.body);
+	// req.body = the json data sent to the route (the email, password and the name -> {"name": "Ludvig", "email": "ludvig@mail.com"})
+	// -> in order to use request body, we need to add middleware to our server.js
 
 	// error checking
 });
