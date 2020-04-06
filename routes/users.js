@@ -76,7 +76,7 @@ router.post(
 			await user.save();
 
 			// send message if user is saved
-			res.send('User saved');
+			// res.send('User saved');
 
 			/* JSON Web Token */
 			// create payload for the token (the object we want to send in the token)
@@ -91,7 +91,7 @@ router.post(
 			// -> it takes in the payload, and a secret
 			// -> and a third parameter with an object of options (for example the expire time)
 			// -> forth parameter is a callback, with possible errors, and the token
-			jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 360000 }, (err, token) => {
+			jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 360000 }, (error, token) => {
 				if (error) {
 					throw error;
 				}
