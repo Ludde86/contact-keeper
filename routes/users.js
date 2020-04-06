@@ -1,11 +1,11 @@
 // bring in express so that we can use the router
 const express = require('express');
 
-// bring in config for the secret for the token
-const config = require('config');
-
 // store the router
 const router = express.Router();
+
+// bring in config for the secret for the token
+const config = require('config');
 
 // bring in bcrypt for hash password
 const bcrypt = require('bcryptjs');
