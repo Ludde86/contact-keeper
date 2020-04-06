@@ -23,11 +23,21 @@ router.post(
 	(req, res) => {
 		// '/' goes to '/api/users' -> this file get forwarded to server.js app.use('/api/users', require('./routes/users'))
 		// res.send('Register a user');
-		res.send(req.body);
+		// res.send(req.body);
 		// req.body = the json data sent to the route (the email, password and the name -> {"name": "Ludvig", "email": "ludvig@mail.com"})
 		// -> in order to use request body, we need to add middleware to our server.js
 
+		// bring in the requested validation errors
+		const errors = validationResult(req);
+
 		// error checking
+		// return status for result if there are errors -> as an array
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+
+		// send message if there is no errors
+		res.send('passed');
 	}
 );
 
