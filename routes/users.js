@@ -1,11 +1,17 @@
 // bring in express so that we can use the router
 const express = require('express');
 
+// bring in config for the secret for the token
+const config = require('config');
+
 // store the router
 const router = express.Router();
 
 // bring in bcrypt for hash password
 const bcrypt = require('bcryptjs');
+
+// bring in json web token
+const jwt = require('jsonwebtoken');
 
 // bring in express validator -> so we can use the chaeck function for validation
 const { check, validationResult } = require('express-validator');
@@ -71,6 +77,26 @@ router.post(
 
 			// send message if user is saved
 			res.send('User saved');
+
+			/* JSON Web Token */
+			// create payload for the token (the object we want to send in the token)
+			// with this user id we get access to specific data based on the user's id
+			const payload = {
+				user: {
+					id: user.id
+				}
+			};
+
+			// to generate a token we have to sign it
+			// -> it takes in the payload, and a secret
+			// -> and a third parameter with an object of options (for example the expire time)
+			// -> forth parameter is a callback, with possible errors, and the token
+			jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 360000 }, (err, token) => {
+				if (error) {
+					throw error;
+				}
+				res.json({ token });
+			});
 		} catch (error) {
 			console.error(error.message);
 			res.status(500).send('Server error');
