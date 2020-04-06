@@ -23,11 +23,11 @@ module.exports = function(req, res, next) {
 
 	// if a token -> we need to verify it
 	try {
+		// once verified the object (the payload) is gonna be put into decoded
 		const decoded = jwt.verify(token, config.get('jwtSecret'));
 
-		// once verified the object (the payload) is gonna be put into decoded
-
-		// bring the user -> assign the user with the decoded token
+		// bring the user -> assign the user with the decoded payload (token)
+		// -> now this requested user have access to the token
 		req.user = decoded.user;
 
 		// call next() to move on

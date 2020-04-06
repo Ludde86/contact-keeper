@@ -12,6 +12,9 @@ const jwt = require('jsonwebtoken');
 // bring in express validator -> so we can use the chaeck function for validation
 const { check, validationResult } = require('express-validator');
 
+// when we want to protect a route (for example, the private GET api/auth call) we will use this middleware
+const auth = require('../middleware/auth');
+
 // bring in user model, so we can use it within our routes
 const User = require('../models/User');
 
@@ -22,8 +25,18 @@ const User = require('../models/User');
 // @route   GET api/auth
 // @desc    Get logged in user
 // @access  Private
-router.get('/', (req, res) => {
-	res.send('Get logged in user');
+router.get('/', auth, async (req, res) => {
+	// res.send('Get logged in user');
+
+	// get the user from the database
+	try {
+		// if we send the correct token and we're logged in, this request object is going to have a user object attached to it with the current logged in user's id
+		const user = await User.findById(req.user.id).select('-password');
+		res.json(user);
+	} catch (error) {
+		console.error(error);
+		res.status(500).send('Server Error');
+	}
 });
 
 // @route   POST api/auth
