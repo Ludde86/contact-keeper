@@ -12,8 +12,23 @@ const auth = require('../middleware/auth');
 // @route   GET api/contacts
 // @desc    Get all users contacts
 // @access  Private
-router.get('/', (req, res) => {
-	res.send('Get all contacts');
+router.get('/', auth, async (req, res) => {
+	// res.send('Get all contacts');
+
+	// -> in try/catch pull from database with the find method
+	// -> we will use the user field (in contacts) to get all users (contacts)
+	// -> this user field have an object id, so use this
+	// -> whit the auth middleware we have access to that request.user object
+	// -> find where user matches the request, and sort by date (-1 = most recent)
+	try {
+		const contacts = await Contact.find({ user: req.user.id }).sort({ date: -1 });
+
+		// return this array in json format
+		res.json(contacts);
+	} catch (error) {
+		console.error(error.message);
+		res.status(500).send('Server Error');
+	}
 });
 
 // @route   POST api/contacts

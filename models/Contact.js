@@ -1,5 +1,5 @@
 // bring in mongoose
-const mongoose = required('mongoose');
+const mongoose = require('mongoose');
 
 // create object schema for contact with mongoose schema method
 const ContactSchema = mongoose.Schema({
