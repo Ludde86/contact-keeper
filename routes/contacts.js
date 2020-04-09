@@ -70,8 +70,44 @@ router.post('/', [ auth, [ check('name', 'Name is required').not().isEmpty() ] ]
 // @route   PUT api/contacts
 // @desc    Update contact
 // @access  Private
-router.put('/:id', (req, res) => {
-	res.send('Update contact');
+router.put('/:id', auth, async (req, res) => {
+	// res.send('Update contact');
+
+	const { name, email, phone, type } = req.body;
+
+	// build contact object, based on the fields that are submitted
+	let contactFields = {};
+
+	// check to see if these are submitted -> id add to contactField
+	if (name) contactFields.name = name;
+	if (email) contactFields.email = email;
+	if (phone) contactFields.phone = phone;
+	if (type) contactFields.type = type;
+
+	try {
+		let contact = await Contact.findById(req.params.id);
+		if (!contact) {
+			return res.status(404).json({ msg: 'Contact not found' });
+		}
+
+		// make sure user owns contact
+		// -> compare user from the token
+		// -> contact.user is not a string -> toString()
+		if (contact.user.toString() !== req.user.id) {
+			return res.status(401).json({ msg: 'Not authorized' });
+		}
+
+		// update contact -> from contact model -> find by id and update -> pass the id that will be updated
+		// $set: contactFields -> set the contac fields that we descibed above
+		// new: true -> if this contact doesn't exist then create it
+		contact = await Contact.findByIdAndUpdate(req.params.id, { $set: contactFields }, { new: true });
+
+		// send back to client the updated contact
+		res.json(contact);
+	} catch (error) {
+		console.error(error.message);
+		res.status(500).send('Server Error');
+	}
 });
 
 // @route   DELETE api/contacts
