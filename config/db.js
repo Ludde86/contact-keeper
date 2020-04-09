@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
+mongoose.set('useFindAndModify', false);
 
 // bring in config from package.json -> we need access to the global variables
 const config = require('config');
