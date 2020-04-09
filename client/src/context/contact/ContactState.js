@@ -2,7 +2,7 @@
 // import uuid to generate a random id (for hardcoded data before we deal with our backend)
 // import our contact context and contact reducer
 // import types
-import { useReducer } from 'react';
+import React, { useReducer } from 'react';
 import uuid from 'uuid';
 import ContactContext from './contactContext';
 import contactReducer from './contactReducer';
@@ -43,40 +43,39 @@ const ContactState = (props) => {
 			}
 		]
 	};
+	// pull out the state and dispatch, from our reducer with useReducer
+	// -> state allows us to access anything in the state
+	// -> dispatch allows us to dispatch objects to the reducer
+	const [ state, dispatch ] = useReducer(contactReducer, initialState);
+
+	// all our actions
+
+	// add contact
+
+	// delete contact
+
+	// set current contact
+
+	// clear current contact
+
+	// update contact
+
+	// filter contacts
+
+	// clear filter
+
+	// return our provider -> wrap our entire application with this context
+	// -> value, anything we want to be able to access from other components, including state and actions
+	return (
+		<ContactContext.Provider
+			value={{
+				contacts: state.contacts
+			}}
+		>
+			{props.children}
+		</ContactContext.Provider>
+	);
 };
-
-// pull out the state and dispatch, from our reducer with useReducer
-// -> state allows us to access anything in the state
-// -> dispatch allows us to dispatch objects to the reducer
-const [ state, dispatch ] = useReducer(contactReducer, initialState);
-
-// all our actions
-
-// add contact
-
-// delete contact
-
-// set current contact
-
-// clear current contact
-
-// update contact
-
-// filter contacts
-
-// clear filter
-
-// return our provider -> wrap our entire application with this context
-// -> value, anything we want to be able to access from other components, including state and actions
-return (
-	<ContactContext.Provider
-		value={{
-			contacts: state.contacts
-		}}
-	>
-		{props.children}
-	</ContactContext.Provider>
-);
 
 // -> in order to use this we need to wrap our app.js with this contact state component
 
