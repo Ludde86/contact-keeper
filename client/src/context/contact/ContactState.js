@@ -5,7 +5,7 @@
 import { useReducer } from 'react';
 import uuid from 'uuid';
 import ContactContext from './contactContext';
-import ContactReducer from './contactReducer';
+import contactReducer from './contactReducer';
 import {
 	ADD_CONTACT,
 	DELETE_CONTACT,
@@ -48,7 +48,7 @@ const ContactState = (props) => {
 // pull out the state and dispatch, from our reducer with useReducer
 // -> state allows us to access anything in the state
 // -> dispatch allows us to dispatch objects to the reducer
-const [ state, dispatch ] = useReducer(ContactReducer, initialState);
+const [ state, dispatch ] = useReducer(contactReducer, initialState);
 
 // all our actions
 
