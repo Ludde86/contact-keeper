@@ -31,18 +31,22 @@ const ContactForm = ({ current }) => {
 
 	// fill in form based if there's anything in this current value
 	// - we want this to run as soon as the form is created (mounted)
-	useEffect(() => {
-		if (current !== null) {
-			setContact(current);
-		} else {
-			setContact({
-				name: '',
-				email: '',
-				phone: '',
-				type: 'personal'
-			});
-		}
-	});
+	// -> if the contactContext or current value is changed
+	useEffect(
+		() => {
+			if (current !== null) {
+				setContact(current);
+			} else {
+				setContact({
+					name: '',
+					email: '',
+					phone: '',
+					type: 'personal'
+				});
+			}
+		},
+		[ contactContext, current ]
+	);
 
 	return (
 		<form onSubmit={onSubmit}>
