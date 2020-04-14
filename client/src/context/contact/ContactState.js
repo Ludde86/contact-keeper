@@ -23,21 +23,21 @@ const ContactState = (props) => {
 			{
 				id: 1,
 				name: 'Ludde',
-				amail: 'ludde@email.com',
+				email: 'ludde@email.com',
 				phone: '123456',
 				type: 'personal'
 			},
 			{
 				id: 2,
 				name: 'Gurra',
-				amail: 'gurra@email.com',
+				email: 'gurra@email.com',
 				phone: '234567',
 				type: 'personal'
 			},
 			{
 				id: 3,
 				name: 'Carro',
-				amail: 'carro@email.com',
+				email: 'carro@email.com',
 				phone: '345678',
 				type: 'professional'
 			}
@@ -69,7 +69,7 @@ const ContactState = (props) => {
 	return (
 		<ContactContext.Provider
 			value={{
-				contacts: state.contacts
+				contacts: state.contacts // state we brought in from the useReducer()
 			}}
 		>
 			{props.children}
