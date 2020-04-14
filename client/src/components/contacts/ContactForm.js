@@ -1,9 +1,9 @@
-import React, { createContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ContactContext from '../../context/contact/contactContext';
 
 // add and update contacts
 const ContactForm = () => {
-	const contactContext = createContext(ContactContext);
+	const contactContext = useContext(ContactContext);
 	// bring in context, to call the methods and actions
 
 	// useState since this is a form, we do need some component level state for each fields (name, email etc)
@@ -53,8 +53,20 @@ const ContactForm = () => {
 				onChange={(e) => setContact({ ...contact, [e.target.name]: e.target.value })}
 			/>
 			<h5>
-				<input type="radio" name="type" value="personal" checked={type === 'personal'} />Personal
-				<input type="radio" name="type" value="professional" checked={type === 'professional'} />Professional
+				<input
+					type="radio"
+					name="type"
+					value="personal"
+					checked={type === 'personal'}
+					onChange={(e) => setContact({ ...contact, [e.target.name]: e.target.value })}
+				/>Personal
+				<input
+					type="radio"
+					name="type"
+					value="professional"
+					checked={type === 'professional'}
+					onChange={(e) => setContact({ ...contact, [e.target.name]: e.target.value })}
+				/>Professional
 			</h5>
 			<div>
 				<input type="submit" value="Add Contact" className="btn" />
