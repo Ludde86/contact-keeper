@@ -3,6 +3,7 @@
 
 // create a list and output a contact item for each one
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // bring in the contacts state
 const ContactItem = ({ contact }) => {
@@ -31,8 +32,16 @@ const ContactItem = ({ contact }) => {
 					</li>
 				)}
 			</ul>
+			<p>
+				<button className="btn btn-dark btn-sm">Edit</button>
+				<button className="btn btn-danger btn-sm">Delete</button>
+			</p>
 		</div>
 	);
+};
+
+ContactItem.propTypes = {
+	contact: PropTypes.object.isRequired
 };
 
 export default ContactItem;
