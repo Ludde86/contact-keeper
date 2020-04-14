@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/contactContext';
 
 // add and update contacts
@@ -31,6 +31,18 @@ const ContactForm = ({ current }) => {
 
 	// fill in form based if there's anything in this current value
 	// - we want this to run as soon as the form is created (mounted)
+	useEffect(() => {
+		if (current !== null) {
+			setContact(current);
+		} else {
+			setContact({
+				name: '',
+				email: '',
+				phone: '',
+				type: 'personal'
+			});
+		}
+	});
 
 	return (
 		<form onSubmit={onSubmit}>
