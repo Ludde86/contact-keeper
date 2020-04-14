@@ -1,5 +1,6 @@
 import React, { useContext, Fragment } from 'react';
 import ContactContext from '../../context/contact/contactContext';
+import ContactItem from './ContactItem';
 
 const Contacts = () => {
 	// init our context
@@ -10,7 +11,7 @@ const Contacts = () => {
 	const { contacts } = contactContext;
 
 	// map a list for each contact item
-	return <Fragment>{contacts.map((contact) => <h3>{contact.name}</h3>)}</Fragment>;
+	return <Fragment>{contacts.map((contact) => <ContactItem key={contact.id} contact={contact} />)}</Fragment>;
 };
 
 export default Contacts;
