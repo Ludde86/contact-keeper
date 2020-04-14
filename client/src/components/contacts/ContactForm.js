@@ -3,8 +3,8 @@ import ContactContext from '../../context/contact/contactContext';
 
 // add and update contacts
 const ContactForm = ({ current }) => {
-	const contactContext = useContext(ContactContext);
 	// bring in context, to call the methods and actions
+	const contactContext = useContext(ContactContext);
 
 	// useState since this is a form, we do need some component level state for each fields (name, email etc)
 	const [ contact, setContact ] = useState({
@@ -16,10 +16,11 @@ const ContactForm = ({ current }) => {
 
 	// pull these values of state (contact)
 	const { name, email, phone, type } = contact;
+	const { addContact } = contactContext;
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		contactContext.addContact(contact);
+		addContact(contact);
 		setContact({
 			name: '',
 			email: '',
@@ -27,6 +28,9 @@ const ContactForm = ({ current }) => {
 			type: 'personal'
 		});
 	};
+
+	// fill in form based if there's anything in this current value
+	// - we want this to run as soon as the form is created (mounted)
 
 	return (
 		<form onSubmit={onSubmit}>
