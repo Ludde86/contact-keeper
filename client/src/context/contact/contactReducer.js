@@ -15,8 +15,16 @@ export default (state, action) => {
 	switch (action.type) {
 		case ADD_CONTACT:
 			return {
+				...state, // extend this state ->
+				contacts: [ ...state.contacts, action.payload ] // -> and update with this new state
+			};
+		// if delete
+		// the current state = ...state = contact array (that will be updated)
+		// the updated state = new filtered contact array, the contacts that not match the event id will create a new contact array (without this event contact)
+		case DELETE_CONTACT:
+			return {
 				...state,
-				contacts: [ ...state.contacts, action.payload ]
+				contacts: state.contacts.filter((contact) => contact.id !== action.payload)
 			};
 		default:
 			return state;

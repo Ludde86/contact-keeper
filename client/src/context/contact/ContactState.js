@@ -57,6 +57,11 @@ const ContactState = (props) => {
 	};
 
 	// delete contact
+	// function takes the event id
+	const deleteContact = (id) => {
+		// we dispatch the action delete, and with the action we send the data (the event id)
+		dispatch({ type: DELETE_CONTACT, payload: id });
+	};
 
 	// set current contact
 
@@ -74,7 +79,8 @@ const ContactState = (props) => {
 		<ContactContext.Provider
 			value={{
 				contacts: state.contacts,
-				addContact
+				addContact,
+				deleteContact
 			}}
 		>
 			{props.children}
