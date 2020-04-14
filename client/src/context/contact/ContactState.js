@@ -69,7 +69,7 @@ const ContactState = (props) => {
 	return (
 		<ContactContext.Provider
 			value={{
-				contacts: state.contacts
+				contacts: state.contacts // state we brought in from the useReducer()
 			}}
 		>
 			{props.children}

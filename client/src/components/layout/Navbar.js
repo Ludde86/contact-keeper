@@ -16,7 +16,6 @@ const Navbar = ({ title, icon }) => {
 					<Link to="/about">About</Link>
 				</li>
 			</ul>
-			<Link>hej2</Link>
 		</div>
 	);
 };
