@@ -51,6 +51,10 @@ const ContactState = (props) => {
 	// all our actions
 
 	// add contact
+	const addContact = (contact) => {
+		contact.id = uuid.v4();
+		dispatch({ type: ADD_CONTACT, payload: contact });
+	};
 
 	// delete contact
 
