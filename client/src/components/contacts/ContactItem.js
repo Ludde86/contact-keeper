@@ -16,13 +16,13 @@ const ContactItem = ({ contact }) => {
 	const onDelete = () => {
 		// pass this event id (onClick is an event handler)
 		contactContext.deleteContact(id);
+		contactContext.clearCurrentContact();
 	};
 
-	// link up our context
-
-	// call delete method
-
-	// send it through the reducer
+	// click edit
+	const onEdit = () => {
+		contactContext.setCurrentContact(contact);
+	};
 
 	return (
 		<div className="card bg-light">
@@ -48,7 +48,9 @@ const ContactItem = ({ contact }) => {
 				)}
 			</ul>
 			<p>
-				<button className="btn btn-dark btn-sm">Edit</button>
+				<button className="btn btn-dark btn-sm" onClick={onEdit}>
+					Edit
+				</button>
 				<button className="btn btn-danger btn-sm" onClick={onDelete}>
 					Delete
 				</button>

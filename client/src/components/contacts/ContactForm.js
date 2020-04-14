@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import ContactContext from '../../context/contact/contactContext';
 
 // add and update contacts
-const ContactForm = () => {
+const ContactForm = ({ current }) => {
 	const contactContext = useContext(ContactContext);
 	// bring in context, to call the methods and actions
 
