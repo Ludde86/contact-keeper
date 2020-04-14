@@ -11,17 +11,18 @@ const ContactItem = ({ contact }) => {
 	const contactContext = useContext(ContactContext);
 
 	const { id, name, email, phone, type } = contact;
+	const { deleteContact, setCurrentContact, clearCurrentContact } = contactContext;
 
 	// delete contact
 	const onDelete = () => {
 		// pass this event id (onClick is an event handler)
-		contactContext.deleteContact(id);
-		contactContext.clearCurrentContact();
+		deleteContact(id);
+		clearCurrentContact();
 	};
 
 	// click edit
 	const onEdit = () => {
-		contactContext.setCurrentContact(contact);
+		setCurrentContact(contact);
 	};
 
 	return (
