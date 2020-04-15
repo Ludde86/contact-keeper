@@ -42,8 +42,20 @@ const ContactState = (props) => {
 				type: 'professional'
 			}
 		],
-		current: null
+		current: null,
+		filtered: null
 	};
+
+	// add filtered state as null
+	// -> it gonna be a filtered array
+
+	// create filter function
+	// -> takes in text to filter
+	// -> that text will be dispatched with FILTER_CONTACTS
+
+	// create clear filter function
+	// -> sets the array back to null
+
 	// pull out the state and dispatch, from our reducer with useReducer
 	// -> state allows us to access anything in the state
 	// -> dispatch allows us to dispatch objects to the reducer
@@ -80,6 +92,9 @@ const ContactState = (props) => {
 	};
 
 	// filter contacts
+	const filterContacts = (text) => {
+		dispatch({ FILTER_CONTACTS, payload: text });
+	};
 
 	// clear filter
 
