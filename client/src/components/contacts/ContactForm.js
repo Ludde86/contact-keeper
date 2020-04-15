@@ -6,7 +6,7 @@ const ContactForm = () => {
 	// bring in context, to call the methods and actions
 	const contactContext = useContext(ContactContext);
 
-	const { addContact, clearCurrentContact, current } = contactContext;
+	const { addContact, clearCurrentContact, updateContact, current } = contactContext;
 
 	// useState since this is a form, we do need some component level state for each fields (name, email etc)
 	const [ contact, setContact ] = useState({
@@ -41,7 +41,12 @@ const ContactForm = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		addContact(contact);
+		if (!current) {
+			addContact(contact);
+		} else {
+			updateContact(contact);
+		}
+
 		setContact({
 			name: '',
 			email: '',
