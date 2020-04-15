@@ -51,6 +51,7 @@ export default (state, action) => {
 			};
 		case CLEAR_FILTER:
 			return {
+				...state,
 				filtered: null
 			};
 		default:
