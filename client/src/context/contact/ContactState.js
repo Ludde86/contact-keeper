@@ -97,6 +97,9 @@ const ContactState = (props) => {
 	};
 
 	// clear filter
+	const clearFilter = () => {
+		dispatch({ CLEAR_FILTER });
+	};
 
 	// return our provider -> wrap our entire application with this context
 	// -> value, anything we want to be able to access from other components, including state and actions
