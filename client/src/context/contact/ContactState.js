@@ -93,12 +93,12 @@ const ContactState = (props) => {
 
 	// filter contacts
 	const filterContacts = (text) => {
-		dispatch({ FILTER_CONTACTS, payload: text });
+		dispatch({ type: FILTER_CONTACTS, payload: text });
 	};
 
 	// clear filter
 	const clearFilter = () => {
-		dispatch({ CLEAR_FILTER });
+		dispatch({ type: CLEAR_FILTER });
 	};
 
 	// return our provider -> wrap our entire application with this context
