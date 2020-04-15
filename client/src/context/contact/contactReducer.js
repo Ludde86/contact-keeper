@@ -49,6 +49,10 @@ export default (state, action) => {
 					return contact.name.match(regex) || contact.mail.match(regex);
 				})
 			};
+		case CLEAR_FILTER:
+			return {
+				filtered: null
+			};
 		default:
 			return state;
 	}
