@@ -33,6 +33,11 @@ const ContactFilter = () => {
 	return (
 		<form>
 			<input ref={text} type="text" placeholder="Search Contacts..." onChange={onFilterContacts} />
+			{filtered && (
+				<button className="btn btn-light btn-block" onClick={clearFilter}>
+					Clear Search
+				</button>
+			)}
 		</form>
 	);
 };
