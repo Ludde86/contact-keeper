@@ -6,7 +6,7 @@ const ContactForm = () => {
 	// bring in context, to call the methods and actions
 	const contactContext = useContext(ContactContext);
 
-	const { addContact, current } = contactContext;
+	const { addContact, clearCurrentContact, current } = contactContext;
 
 	// useState since this is a form, we do need some component level state for each fields (name, email etc)
 	const [ contact, setContact ] = useState({
@@ -21,10 +21,11 @@ const ContactForm = () => {
 
 	// fill in form based if there's anything in this current state value
 	// - we want this to run as soon as the form is created (mounted)
-	// -> if the contactContext or current value is changed
+	// -> if the contactContext or current value is changed (ex when pressing edit button)
+	// -> current state get updated, and the form values will show the contact we want to edit
 	useEffect(
 		() => {
-			if (current !== null) {
+			if (current) {
 				setContact(current);
 			} else {
 				setContact({
@@ -49,9 +50,13 @@ const ContactForm = () => {
 		});
 	};
 
+	const clearAll = () => {
+		clearCurrentContact();
+	};
+
 	return (
 		<form onSubmit={onSubmit}>
-			<h2>Add Contact</h2>
+			<h2 className={current ? 'text-dark' : 'text-primary'}>{current ? 'Edit Contact' : 'Add Contact'}</h2>
 			<input
 				type="text"
 				name="name"
@@ -90,7 +95,16 @@ const ContactForm = () => {
 				/>Professional
 			</h5>
 			<div>
-				<input type="submit" value="Add Contact" className="btn" />
+				<input
+					type="submit"
+					value={current ? 'Update Contact' : 'Add Contact'}
+					className={current ? 'btn btn-dark btn-block' : 'btn btn-primary btn-block'}
+				/>
+				{current && (
+					<button className="btn btn-light btn-block" onClick={clearAll}>
+						Clear
+					</button>
+				)}
 			</div>
 		</form>
 	);
