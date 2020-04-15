@@ -1,10 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/contactContext';
 
 // add and update contacts
-const ContactForm = ({ current }) => {
-	const contactContext = useContext(ContactContext);
+const ContactForm = () => {
 	// bring in context, to call the methods and actions
+	const contactContext = useContext(ContactContext);
+
+	const { addContact, clearCurrentContact, updateContact, current } = contactContext;
 
 	// useState since this is a form, we do need some component level state for each fields (name, email etc)
 	const [ contact, setContact ] = useState({
@@ -17,9 +19,34 @@ const ContactForm = ({ current }) => {
 	// pull these values of state (contact)
 	const { name, email, phone, type } = contact;
 
+	// fill in form based if there's anything in this current state value
+	// - we want this to run as soon as the form is created (mounted)
+	// -> if the contactContext or current value is changed (ex when pressing edit button)
+	// -> current state get updated, and the form values will show the contact we want to edit
+	useEffect(
+		() => {
+			if (current) {
+				setContact(current);
+			} else {
+				setContact({
+					name: '',
+					email: '',
+					phone: '',
+					type: 'personal'
+				});
+			}
+		},
+		[ contactContext, current ]
+	);
+
 	const onSubmit = (e) => {
 		e.preventDefault();
-		contactContext.addContact(contact);
+		if (!current) {
+			addContact(contact);
+		} else {
+			updateContact(contact);
+		}
+
 		setContact({
 			name: '',
 			email: '',
@@ -28,9 +55,13 @@ const ContactForm = ({ current }) => {
 		});
 	};
 
+	const clearAll = () => {
+		clearCurrentContact();
+	};
+
 	return (
 		<form onSubmit={onSubmit}>
-			<h2>Add Contact</h2>
+			<h2 className={current ? 'text-dark' : 'text-primary'}>{current ? 'Edit Contact' : 'Add Contact'}</h2>
 			<input
 				type="text"
 				name="name"
@@ -69,7 +100,16 @@ const ContactForm = ({ current }) => {
 				/>Professional
 			</h5>
 			<div>
-				<input type="submit" value="Add Contact" className="btn" />
+				<input
+					type="submit"
+					value={current ? 'Update Contact' : 'Add Contact'}
+					className={current ? 'btn btn-dark btn-block' : 'btn btn-primary btn-block'}
+				/>
+				{current && (
+					<button className="btn btn-light btn-block" onClick={clearAll}>
+						Clear
+					</button>
+				)}
 			</div>
 		</form>
 	);
