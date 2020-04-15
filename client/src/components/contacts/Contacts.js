@@ -15,7 +15,7 @@ const Contacts = () => {
 	}
 
 	if (filtered !== null && filtered.length === 0) {
-		return <h4>No Contacts</h4>;
+		return <h4>No Contacts Found</h4>;
 	}
 
 	// map a list for each contact item

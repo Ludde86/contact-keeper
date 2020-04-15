@@ -107,7 +107,7 @@ const ContactForm = () => {
 				/>
 				{current && (
 					<button className="btn btn-light btn-block" onClick={clearAll}>
-						Clear
+						Back to Add Contact
 					</button>
 				)}
 			</div>
