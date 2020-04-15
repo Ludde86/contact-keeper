@@ -8,10 +8,26 @@ const Contacts = () => {
 	const contactContext = useContext(ContactContext);
 
 	// pull out the state to use
-	const { contacts } = contactContext;
+	const { contacts, filtered } = contactContext;
+
+	if (!contacts) {
+		return <h4>No Contacts</h4>;
+	}
+
+	if (filtered !== null && filtered.length === 0) {
+		return <h4>No Contacts Found</h4>;
+	}
 
 	// map a list for each contact item
-	return <Fragment>{contacts.map((contact) => <ContactItem key={contact.id} contact={contact} />)}</Fragment>;
+	return (
+		<Fragment>
+			{filtered !== null ? (
+				filtered.map((contact) => <ContactItem key={contact.id} contact={contact} />)
+			) : (
+				contacts.map((contact) => <ContactItem key={contact.id} contact={contact} />)
+			)}
+		</Fragment>
+	);
 };
 
 export default Contacts;
