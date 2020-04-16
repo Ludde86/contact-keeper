@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import AlertContext from '../../context/alert/alertContext';
 
 const Register = () => {
+	const alertContext = useContext(AlertContext);
+	const { setAlert } = alertContext;
+
 	// set state for user's fields
 	// -> name, email, password, password2
 	const [ user, setUser ] = useState({
@@ -14,7 +18,13 @@ const Register = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log('Register submit');
+		if (name === '' || email === '' || password === '') {
+			setAlert('Please enter all fields', 'danger');
+		} else if (password !== password2) {
+			setAlert('Password do not match', 'danger');
+		} else {
+			console.log('Register submit');
+		}
 	};
 
 	return (
@@ -25,15 +35,36 @@ const Register = () => {
 			<form onSubmit={onSubmit}>
 				<div className="form-group">
 					<label htmlFor="name">Name</label>
-					<input type="text" name="name" value={name} onChange={(e) => setUser(e.target.value)} />
+					<input
+						type="text"
+						name="name"
+						value={name}
+						onChange={(e) => {
+							setUser({ ...user, name: e.target.value });
+						}}
+					/>
 				</div>
 				<div className="form-group">
 					<label htmlFor="email">Email</label>
-					<input type="email" name="email" value={email} onChange={(e) => setUser(e.target.value)} />
+					<input
+						type="email"
+						name="email"
+						value={email}
+						onChange={(e) => {
+							setUser({ ...user, email: e.target.value });
+						}}
+					/>
 				</div>
 				<div className="form-group">
 					<label htmlFor="password">Password</label>
-					<input type="password" name="password" value={password} onChange={(e) => setUser(e.target.value)} />
+					<input
+						type="password"
+						name="password"
+						value={password}
+						onChange={(e) => {
+							setUser({ ...user, password: e.target.value });
+						}}
+					/>
 				</div>
 				<div className="form-group">
 					<label htmlFor="password2">Confirm Password</label>
@@ -41,7 +72,9 @@ const Register = () => {
 						type="password"
 						name="password2"
 						value={password2}
-						onChange={(e) => setUser(e.target.value)}
+						onChange={(e) => {
+							setUser({ ...user, password2: e.target.value });
+						}}
 					/>
 				</div>
 				<input type="submit" value="Register" className="btn btn-primary btn-block" />

@@ -22,7 +22,7 @@ const AuthState = (props) => {
 	};
 
 	// init reducer -> pass in authReducer and initState -> bring state and dispatch
-	const [ state, dispatch ] = useReducer(initialState, authReducer);
+	const [ state, dispatch ] = useReducer(authReducer, initialState);
 
 	// load user -> checking which user is logged in
 	// -> hit that endpoint and get that data
