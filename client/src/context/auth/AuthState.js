@@ -1,4 +1,6 @@
 import React, { useReducer } from 'react';
+import { REGISTER_SUCCESS, REGISTER_FAIL } from '../types';
+import axios from 'axios';
 import authReducer from './authReducer';
 import AuthContext from '../auth/authContext';
 
@@ -24,16 +26,40 @@ const AuthState = (props) => {
 	// init reducer -> pass in authReducer and initState -> bring state and dispatch
 	const [ state, dispatch ] = useReducer(authReducer, initialState);
 
-	// load user -> checking which user is logged in
-	// -> hit that endpoint and get that data
+	// load user
 
-	// register user -> sign the user up -> get a token back
+	// register user
+	// -> pass in the data from register form
+	const registerUser = async (formData) => {
+		// with axios we create a config object
+		// -> when making a post request (sending data), we need that "content type header" of application json
+		const config = {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		};
+		try {
+			// in package.json we set proxy http://localhost:5000, so we dont have to enter that for every request
+			// -> the request url (-> user.js route) -> our form data (formData) -> the config
+			const res = await axios.post('/api/users', formData, config);
+			// -> if it goes ok -> dispatch REGISTER_SUCCESS with the payload (the token we get as a response)
+			dispatch({
+				type: REGISTER_SUCCESSS,
+				payload: res.data
+			});
+		} catch (error) {
+			// if error -> dispatch REGISTER_FAIL
+			// -> payload, the error response we get from user.js route
+			dispatch({
+				type: REGISTER_FAIL,
+				payload: error.response.data.msg
+			});
+		}
+	};
 
-	// login user -> log the user in -> get the token
+	// login user
 
-	// logout -> destroy the token -> clear everything up
-
-	// clear errors - clears errors from the state
+	// logout
 
 	return (
 		<AuthContext.Provider
