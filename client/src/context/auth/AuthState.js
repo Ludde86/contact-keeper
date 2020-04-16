@@ -44,7 +44,7 @@ const AuthState = (props) => {
 			const res = await axios.post('/api/users', formData, config);
 			// -> if it goes ok -> dispatch REGISTER_SUCCESS with the payload (the token we get as a response)
 			dispatch({
-				type: REGISTER_SUCCESSS,
+				type: REGISTER_SUCCESS,
 				payload: res.data
 			});
 		} catch (error) {
