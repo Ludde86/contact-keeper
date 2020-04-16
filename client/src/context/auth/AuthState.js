@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { REGISTER_SUCCESS, REGISTER_FAIL } from '../types';
+import { REGISTER_SUCCESS, REGISTER_FAIL, CLEAR_ERRORS } from '../types';
 import axios from 'axios';
 import authReducer from './authReducer';
 import AuthContext from '../auth/authContext';
@@ -60,6 +60,13 @@ const AuthState = (props) => {
 	// login user
 
 	// logout
+
+	// clear errors
+	const clearErrors = () => {
+		dispatch({
+			type: CLEAR_ERRORS
+		});
+	};
 
 	return (
 		<AuthContext.Provider
