@@ -36,7 +36,7 @@ const Register = () => {
 					<input type="password" name="password" value={password} onChange={(e) => setUser(e.target.value)} />
 				</div>
 				<div className="form-group">
-					<label htmlFor="password2">Repeat Password</label>
+					<label htmlFor="password2">Confirm Password</label>
 					<input
 						type="password"
 						name="password2"

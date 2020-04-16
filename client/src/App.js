@@ -8,6 +8,7 @@ import ContactState from './context/contact/ContactState';
 import AuthState from './context/auth/AuthState';
 import './App.css';
 import Register from './components/auth/Register';
+import Login from './components/auth/Login';
 
 const App = () => {
 	return (
@@ -21,6 +22,7 @@ const App = () => {
 								<Route exact path="/" component={Home} />
 								<Route exact path="/about" component={About} />
 								<Route exact path="/register" component={Register} />
+								<Route exact path="/login" component={Login} />
 							</Switch>
 						</div>
 					</Fragment>
