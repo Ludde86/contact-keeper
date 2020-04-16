@@ -54,12 +54,7 @@ const Register = () => {
 				</div>
 				<div className="form-group">
 					<label htmlFor="password2">Confirm Password</label>
-					<input
-						type="password"
-						name="password2"
-						value={password2}
-						onChange={(e) => setUser(e.target.value)}
-					/>
+					<input type="password" name="password2" value={password2} onChange={onChange} />
 				</div>
 				<input type="submit" value="Register" className="btn btn-primary btn-block" />
 			</form>
