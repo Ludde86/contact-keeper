@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import authReducer from './authReducer';
+import AuthContext from '../auth/authContext';
 
 const AuthState = (props) => {
 	// init state
@@ -13,7 +14,7 @@ const AuthState = (props) => {
 
 	// our errors
 	const initialState = {
-		token: localStorage.get('token'),
+		token: localStorage.getItem('token'),
 		user: null,
 		isAuthenticated: null,
 		loading: true,
@@ -48,3 +49,5 @@ const AuthState = (props) => {
 		</AuthContext.Provider>
 	);
 };
+
+export default AuthState;
