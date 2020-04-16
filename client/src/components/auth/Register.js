@@ -16,13 +16,6 @@ const Register = () => {
 
 	const { name, email, password, password2 } = user;
 
-	const onChange = (e) => {
-		setUser({
-			...user,
-			[e.target.name]: e.target.value
-		});
-	};
-
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (name === '' || email === '' || password === '') {
@@ -42,19 +35,47 @@ const Register = () => {
 			<form onSubmit={onSubmit}>
 				<div className="form-group">
 					<label htmlFor="name">Name</label>
-					<input type="text" name="name" value={name} onChange={onChange} />
+					<input
+						type="text"
+						name="name"
+						value={name}
+						onChange={(e) => {
+							setUser({ ...user, name: e.target.value });
+						}}
+					/>
 				</div>
 				<div className="form-group">
 					<label htmlFor="email">Email</label>
-					<input type="email" name="email" value={email} onChange={onChange} />
+					<input
+						type="email"
+						name="email"
+						value={email}
+						onChange={(e) => {
+							setUser({ ...user, email: e.target.value });
+						}}
+					/>
 				</div>
 				<div className="form-group">
 					<label htmlFor="password">Password</label>
-					<input type="password" name="password" value={password} onChange={onChange} />
+					<input
+						type="password"
+						name="password"
+						value={password}
+						onChange={(e) => {
+							setUser({ ...user, password: e.target.value });
+						}}
+					/>
 				</div>
 				<div className="form-group">
 					<label htmlFor="password2">Confirm Password</label>
-					<input type="password" name="password2" value={password2} onChange={onChange} />
+					<input
+						type="password"
+						name="password2"
+						value={password2}
+						onChange={(e) => {
+							setUser({ ...user, password2: e.target.value });
+						}}
+					/>
 				</div>
 				<input type="submit" value="Register" className="btn btn-primary btn-block" />
 			</form>
