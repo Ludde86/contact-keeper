@@ -31,7 +31,10 @@ export default (state, action) => {
 		case CLEAR_CONTACTS:
 			return {
 				...state,
-				contacts: null
+				contacts: null,
+				filtered: null,
+				error: null,
+				current: null
 			};
 		// if delete
 		// the current state = ...state = contact array (that will be updated)

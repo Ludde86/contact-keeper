@@ -77,6 +77,7 @@ const ContactState = (props) => {
 		}
 	};
 
+	// clear contacts
 	const clearContacts = () => {
 		dispatch({
 			type: CLEAR_CONTACTS
