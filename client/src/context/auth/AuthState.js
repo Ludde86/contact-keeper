@@ -3,6 +3,7 @@ import { REGISTER_SUCCESS, REGISTER_FAIL, CLEAR_ERRORS, USER_LOADED, AUTH_ERROR 
 import axios from 'axios';
 import authReducer from './authReducer';
 import AuthContext from '../auth/authContext';
+import setAuthToken from '../../utils/setAuthToken';
 
 const AuthState = (props) => {
 	// init state
@@ -29,7 +30,9 @@ const AuthState = (props) => {
 	// load user
 	// set token into a global header, within axios
 	const loadUser = async () => {
-		// @todo - load token into global headers
+		if (localStorage.token) {
+			setAuthToken(localStorage.token);
+		}
 		try {
 			const res = await axios.get('/api/auth'); // get user, and check token (if valid user)
 			dispatch({
