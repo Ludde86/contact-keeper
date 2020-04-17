@@ -81,9 +81,17 @@ const ContactState = (props) => {
 
 	// delete contact
 	// function takes the event id
-	const deleteContact = (id) => {
+	const deleteContact = async (id) => {
 		// we dispatch the action delete, and with the action we send the data (the event id)
-		dispatch({ type: DELETE_CONTACT, payload: id });
+		try {
+			const res = await axios.delete('/api/contacts');
+			dispatch({ type: DELETE_CONTACT, payload: res.id });
+		} catch (error) {
+			dispatch({
+				type: CONTACT_ERROR,
+				payload: error.response.data.msg
+			});
+		}
 	};
 
 	// set current contact
