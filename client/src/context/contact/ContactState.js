@@ -22,7 +22,7 @@ import {
 // create hardcoded initial state
 const ContactState = (props) => {
 	const initialState = {
-		contacts: [],
+		contacts: null,
 		current: null,
 		filtered: null,
 		error: null
@@ -42,8 +42,6 @@ const ContactState = (props) => {
 	// -> state allows us to access anything in the state
 	// -> dispatch allows us to dispatch objects to the reducer
 	const [ state, dispatch ] = useReducer(contactReducer, initialState);
-
-	// all our actions
 
 	// add contact
 	const addContact = async (contact) => {
@@ -77,6 +75,12 @@ const ContactState = (props) => {
 				payload: error.response.data.msg
 			});
 		}
+	};
+
+	const clearContacts = () => {
+		dispatch({
+			type: CLEAR_CONTACTS
+		});
 	};
 
 	// delete contact
@@ -130,6 +134,7 @@ const ContactState = (props) => {
 				error: state.error,
 				addContact,
 				getContacts,
+				clearContacts,
 				deleteContact,
 				setCurrentContact,
 				clearCurrentContact,
