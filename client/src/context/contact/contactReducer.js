@@ -19,7 +19,7 @@ export default (state, action) => {
 		case ADD_CONTACT:
 			return {
 				...state, // extend this state ->
-				contacts: [ ...state.contacts, action.payload ], // -> and update with this new state
+				contacts: [ action.payload, ...state.contacts ], // -> and update with this new state
 				loading: false
 			};
 		case GET_CONTACTS:
