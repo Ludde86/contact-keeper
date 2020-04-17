@@ -65,6 +65,9 @@ const AuthState = (props) => {
 				type: REGISTER_SUCCESS,
 				payload: res.data
 			});
+
+			// when we register, we should get logged in, get the token and load the user
+			loadUser();
 		} catch (error) {
 			// if error -> dispatch REGISTER_FAIL
 			// -> payload, the error response we get from user.js route (from the server) -> put it in state as a payload -> set it into an alert
