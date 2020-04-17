@@ -7,7 +7,8 @@ import {
 	UPDATE_CONTACT,
 	FILTER_CONTACTS,
 	CLEAR_FILTER,
-	CONTACT_ERROR
+	CONTACT_ERROR,
+	GET_CONTACTS
 } from '../types';
 
 // create our reducer function
@@ -17,7 +18,14 @@ export default (state, action) => {
 		case ADD_CONTACT:
 			return {
 				...state, // extend this state ->
-				contacts: [ ...state.contacts, action.payload ] // -> and update with this new state
+				contacts: [ ...state.contacts, action.payload ], // -> and update with this new state
+				loading: false
+			};
+		case GET_CONTACTS:
+			return {
+				...state,
+				contacts: action.payload,
+				loading: false
 			};
 		// if delete
 		// the current state = ...state = contact array (that will be updated)
@@ -25,7 +33,8 @@ export default (state, action) => {
 		case DELETE_CONTACT:
 			return {
 				...state,
-				contacts: state.contacts.filter((contact) => contact.id !== action.payload)
+				contacts: state.contacts.filter((contact) => contact.id !== action.payload),
+				loading: false
 			};
 		case SET_CURRENT:
 			return {
@@ -40,7 +49,10 @@ export default (state, action) => {
 		case UPDATE_CONTACT:
 			return {
 				...state,
-				contacts: state.contacts.map((contact) => (contact.id === action.payload.id ? action.payload : contact))
+				contacts: state.contacts.map(
+					(contact) => (contact.id === action.payload.id ? action.payload : contact)
+				),
+				loading: false
 			};
 		case FILTER_CONTACTS:
 			return {

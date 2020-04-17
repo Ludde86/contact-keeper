@@ -9,6 +9,8 @@ import contactReducer from './contactReducer';
 import {
 	ADD_CONTACT,
 	DELETE_CONTACT,
+	GET_CONTACTS,
+	CLEAR_CONTACTS,
 	SET_CURRENT,
 	CLEAR_CURRENT,
 	UPDATE_CONTACT,
@@ -61,6 +63,22 @@ const ContactState = (props) => {
 		}
 	};
 
+	// get contacts
+	const getContacts = async () => {
+		try {
+			const res = await axios.get('/api/contacts');
+			dispatch({
+				type: GET_CONTACTS,
+				payload: res.data
+			});
+		} catch (error) {
+			dispatch({
+				type: CONTACT_ERROR,
+				payload: error.response.data.msg
+			});
+		}
+	};
+
 	// delete contact
 	// function takes the event id
 	const deleteContact = (id) => {
@@ -103,6 +121,7 @@ const ContactState = (props) => {
 				filtered: state.filtered,
 				error: state.error,
 				addContact,
+				getContacts,
 				deleteContact,
 				setCurrentContact,
 				clearCurrentContact,
