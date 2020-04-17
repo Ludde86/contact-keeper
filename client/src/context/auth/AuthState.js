@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { REGISTER_SUCCESS, REGISTER_FAIL, CLEAR_ERRORS } from '../types';
+import { REGISTER_SUCCESS, REGISTER_FAIL, CLEAR_ERRORS, USER_LOADED, AUTH_ERROR } from '../types';
 import axios from 'axios';
 import authReducer from './authReducer';
 import AuthContext from '../auth/authContext';
@@ -27,6 +27,21 @@ const AuthState = (props) => {
 	const [ state, dispatch ] = useReducer(authReducer, initialState);
 
 	// load user
+	// set token into a global header, within axios
+	const loadUser = async () => {
+		// @todo - load token into global headers
+		try {
+			const res = await axios.get('/api/auth'); // get user, and check token (if valid user)
+			dispatch({
+				type: USER_LOADED,
+				payload: res.data
+			});
+		} catch (error) {
+			dispatch({
+				type: AUTH_ERROR
+			});
+		}
+	};
 
 	// register user
 	// -> pass in the data from register form
