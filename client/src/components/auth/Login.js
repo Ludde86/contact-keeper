@@ -5,7 +5,7 @@ import AlertContext from '../../context/alert/alertContext';
 const Login = (props) => {
 	const authContext = useContext(AuthContext);
 	const alertContext = useContext(AlertContext);
-	const { isAuthenticated, error, clearErrors } = authContext;
+	const { isAuthenticated, error, clearErrors, loginUser } = authContext;
 	const { setAlert } = alertContext;
 	useEffect(
 		() => {
@@ -19,7 +19,7 @@ const Login = (props) => {
 			}
 		},
 		// eslint-disable-next-line
-		[ isAuthenticated, props.history ]
+		[ error, isAuthenticated, props.history ]
 	);
 
 	const [ user, setUser ] = useState({
@@ -31,7 +31,14 @@ const Login = (props) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log('Login submit');
+		if (email === '' || password === '') {
+			setAlert('Please fill in all fields', 'danger');
+		} else {
+			loginUser({
+				email,
+				password
+			});
+		}
 	};
 
 	return (
@@ -42,11 +49,21 @@ const Login = (props) => {
 			<form onSubmit={onSubmit}>
 				<div className="form-group">
 					<label>Email</label>
-					<input type="email" name="email" value={email} onChange={(e) => setUser(e.target.value)} />
+					<input
+						type="email"
+						name="email"
+						value={email}
+						onChange={(e) => setUser({ ...user, email: e.target.value })}
+					/>
 				</div>
 				<div className="form-group">
 					<label>Password</label>
-					<input type="password" name="password" value={password} onChange={(e) => setUser(e.target.value)} />
+					<input
+						type="password"
+						name="password"
+						value={password}
+						onChange={(e) => setUser({ ...user, password: e.target.value })}
+					/>
 				</div>
 				<input type="submit" value="Login" className="btn btn-primary btn-block" />
 			</form>
