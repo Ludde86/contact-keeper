@@ -49,7 +49,7 @@ const AuthState = (props) => {
 			});
 		} catch (error) {
 			// if error -> dispatch REGISTER_FAIL
-			// -> payload, the error response we get from user.js route
+			// -> payload, the error response we get from user.js route (from the server) -> put it in state as a payload -> set it into an alert
 			dispatch({
 				type: REGISTER_FAIL,
 				payload: error.response.data.msg
@@ -76,7 +76,8 @@ const AuthState = (props) => {
 				isAuthenticated: state.isAuthenticated,
 				loading: state.loading,
 				error: state.error,
-				registerUser
+				registerUser,
+				clearErrors
 			}}
 		>
 			{props.children}
