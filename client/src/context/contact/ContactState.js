@@ -89,8 +89,8 @@ const ContactState = (props) => {
 	const deleteContact = async (id) => {
 		// we dispatch the action delete, and with the action we send the data (the event id)
 		try {
-			const res = await axios.delete('/api/contacts');
-			dispatch({ type: DELETE_CONTACT, payload: res.id });
+			await axios.delete(`/api/contacts/${id}`);
+			dispatch({ type: DELETE_CONTACT, payload: id });
 		} catch (error) {
 			dispatch({
 				type: CONTACT_ERROR,
