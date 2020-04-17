@@ -1,4 +1,4 @@
-import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR } from '../types';
+import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS } from '../types';
 
 export default (state, action) => {
 	switch (action.type) {
@@ -24,6 +24,13 @@ export default (state, action) => {
 				error: action.payload // put the error message in state
 			};
 		case USER_LOADED:
+			return {
+				...state,
+				isAuthenticated: true,
+				loading: false,
+				user: action.payload
+			};
+		case LOGIN_SUCCESS:
 			return {
 				...state,
 				isAuthenticated: true,
