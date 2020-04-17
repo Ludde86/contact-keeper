@@ -1,13 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AuthContext from '../../context/auth/authContext';
+import AlertContext from '../../context/alert/alertContext';
 
 const Login = (props) => {
-	const authContect = useContext(AuthContext);
-	const { loadUser } = authContect;
-	useEffect(() => {
-		loadUser();
-		props.history.push('/');
-	});
+	const authContext = useContext(AuthContext);
+	const alertContext = useContext(AlertContext);
+	const { isAuthenticated, error, clearErrors } = authContext;
+	const { setAlert } = alertContext;
+	useEffect(
+		() => {
+			if (isAuthenticated) {
+				props.history.push('/');
+			}
+
+			if (error === 'Invalid Credentials') {
+				setAlert(error, 'danger');
+				clearErrors();
+			}
+		},
+		// eslint-disable-next-line
+		[ isAuthenticated, props.history ]
+	);
 
 	const [ user, setUser ] = useState({
 		email: '',
