@@ -4,15 +4,19 @@ import ContactForm from '../contacts/ContactForm';
 import ContactFilter from '../contacts/ContactFilter';
 import AuthContext from '../../context/auth/authContext';
 
-const Home = () => {
+const Home = (props) => {
 	const authContext = useContext(AuthContext);
-	const { loadUser } = authContext;
+	const { loadUser, isAuthenticated } = authContext;
 	useEffect(
 		() => {
-			loadUser();
+			if (!isAuthenticated) {
+				props.history.push('/login');
+			} else {
+				loadUser();
+			}
 		},
 		// eslint-disable-next-line
-		[]
+		[ isAuthenticated ]
 	);
 
 	return (
