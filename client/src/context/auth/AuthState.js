@@ -66,7 +66,7 @@ const AuthState = (props) => {
 				payload: res.data
 			});
 
-			// when we register, we should get logged in, get the token and load the user
+			// when we register, we should get logged in, get the token and load the user (get the user from backend)
 			loadUser();
 		} catch (error) {
 			// if error -> dispatch REGISTER_FAIL
@@ -98,7 +98,8 @@ const AuthState = (props) => {
 				loading: state.loading,
 				error: state.error,
 				registerUser,
-				clearErrors
+				clearErrors,
+				loadUser
 			}}
 		>
 			{props.children}
