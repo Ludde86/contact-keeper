@@ -6,7 +6,8 @@ import {
 	USER_LOADED,
 	AUTH_ERROR,
 	LOGIN_SUCCESS,
-	LOGIN_FAIL
+	LOGIN_FAIL,
+	LOGOUT
 } from '../types';
 import axios from 'axios';
 import authReducer from './authReducer';
@@ -115,6 +116,11 @@ const AuthState = (props) => {
 	};
 
 	// logout
+	const logoutUser = () => {
+		dispatch({
+			type: LOGOUT
+		});
+	};
 
 	// clear errors
 	const clearErrors = () => {
@@ -134,7 +140,8 @@ const AuthState = (props) => {
 				registerUser,
 				clearErrors,
 				loadUser,
-				loginUser
+				loginUser,
+				logoutUser
 			}}
 		>
 			{props.children}
