@@ -9,6 +9,8 @@ import contactReducer from './contactReducer';
 import {
 	ADD_CONTACT,
 	DELETE_CONTACT,
+	GET_CONTACTS,
+	CLEAR_CONTACTS,
 	SET_CURRENT,
 	CLEAR_CURRENT,
 	UPDATE_CONTACT,
@@ -20,7 +22,7 @@ import {
 // create hardcoded initial state
 const ContactState = (props) => {
 	const initialState = {
-		contacts: [],
+		contacts: null,
 		current: null,
 		filtered: null,
 		error: null
@@ -41,8 +43,6 @@ const ContactState = (props) => {
 	// -> dispatch allows us to dispatch objects to the reducer
 	const [ state, dispatch ] = useReducer(contactReducer, initialState);
 
-	// all our actions
-
 	// add contact
 	const addContact = async (contact) => {
 		const config = {
@@ -61,11 +61,42 @@ const ContactState = (props) => {
 		}
 	};
 
+	// get contacts
+	const getContacts = async () => {
+		try {
+			const res = await axios.get('/api/contacts');
+			dispatch({
+				type: GET_CONTACTS,
+				payload: res.data
+			});
+		} catch (error) {
+			dispatch({
+				type: CONTACT_ERROR,
+				payload: error.response.data.msg
+			});
+		}
+	};
+
+	// clear contacts
+	const clearContacts = () => {
+		dispatch({
+			type: CLEAR_CONTACTS
+		});
+	};
+
 	// delete contact
 	// function takes the event id
-	const deleteContact = (id) => {
+	const deleteContact = async (id) => {
 		// we dispatch the action delete, and with the action we send the data (the event id)
-		dispatch({ type: DELETE_CONTACT, payload: id });
+		try {
+			const res = await axios.delete('/api/contacts');
+			dispatch({ type: DELETE_CONTACT, payload: res.id });
+		} catch (error) {
+			dispatch({
+				type: CONTACT_ERROR,
+				payload: error.response.data.msg
+			});
+		}
 	};
 
 	// set current contact
@@ -103,6 +134,8 @@ const ContactState = (props) => {
 				filtered: state.filtered,
 				error: state.error,
 				addContact,
+				getContacts,
+				clearContacts,
 				deleteContact,
 				setCurrentContact,
 				clearCurrentContact,

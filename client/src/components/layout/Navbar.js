@@ -1,14 +1,23 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
+import ContactContext from '../../context/contact/contactContext';
 
 const Navbar = ({ title, icon }) => {
 	const authContext = useContext(AuthContext);
-	const { user, isAuthenticated, logoutUser } = authContext;
+	const contactContext = useContext(ContactContext);
+	const { user, isAuthenticated, logoutUser, loadUser } = authContext;
+	const { clearContacts } = contactContext;
+
+	useEffect(() => {
+		loadUser();
+		// eslint-disable-next-line
+	}, []);
 
 	const onLogout = () => {
 		logoutUser();
+		clearContacts();
 	};
 
 	const authLinks = (
