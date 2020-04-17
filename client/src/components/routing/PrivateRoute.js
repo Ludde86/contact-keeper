@@ -8,12 +8,9 @@ import AuthContext from '../../context/auth/authContext';
 // this is a standard way to create a private route in react
 const PrivateRoute = ({ component: Component, ...rest }) => {
 	const authContext = useContext(AuthContext);
-	const { isAuthenticated, loading } = authContext;
+	const { isAuthenticated } = authContext;
 	return (
-		<Route
-			{...rest}
-			render={(props) => (!isAuthenticated && !loading ? <Redirect to="/login" /> : <Component {...props} />)}
-		/>
+		<Route {...rest} render={(props) => (!isAuthenticated ? <Redirect to="/login" /> : <Component {...props} />)} />
 	);
 };
 
