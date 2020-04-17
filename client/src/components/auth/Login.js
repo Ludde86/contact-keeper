@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import AuthContext from '../../context/auth/authContext';
 
-const Login = () => {
+const Login = (props) => {
+	const authContect = useContext(AuthContext);
+	const { loadUser } = authContect;
+	useEffect(() => {
+		loadUser();
+		props.history.push('/');
+	});
+
 	const [ user, setUser ] = useState({
 		email: '',
 		password: ''
