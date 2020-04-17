@@ -1,8 +1,9 @@
 import React, { useReducer } from 'react';
-import { REGISTER_SUCCESS, REGISTER_FAIL, CLEAR_ERRORS } from '../types';
+import { REGISTER_SUCCESS, REGISTER_FAIL, CLEAR_ERRORS, USER_LOADED, AUTH_ERROR } from '../types';
 import axios from 'axios';
 import authReducer from './authReducer';
 import AuthContext from '../auth/authContext';
+import setAuthToken from '../../utils/setAuthToken';
 
 const AuthState = (props) => {
 	// init state
@@ -27,6 +28,23 @@ const AuthState = (props) => {
 	const [ state, dispatch ] = useReducer(authReducer, initialState);
 
 	// load user
+	// set token into a global header, within axios
+	const loadUser = async () => {
+		if (localStorage.token) {
+			setAuthToken(localStorage.token);
+		}
+		try {
+			const res = await axios.get('/api/auth'); // get user, and check token (if valid user)
+			dispatch({
+				type: USER_LOADED,
+				payload: res.data
+			});
+		} catch (error) {
+			dispatch({
+				type: AUTH_ERROR
+			});
+		}
+	};
 
 	// register user
 	// -> pass in the data from register form
@@ -47,6 +65,9 @@ const AuthState = (props) => {
 				type: REGISTER_SUCCESS,
 				payload: res.data
 			});
+
+			// when we register, we should get logged in, get the token and load the user (get the user from backend)
+			loadUser();
 		} catch (error) {
 			// if error -> dispatch REGISTER_FAIL
 			// -> payload, the error response we get from user.js route (from the server) -> put it in state as a payload -> set it into an alert
@@ -77,7 +98,8 @@ const AuthState = (props) => {
 				loading: state.loading,
 				error: state.error,
 				registerUser,
-				clearErrors
+				clearErrors,
+				loadUser
 			}}
 		>
 			{props.children}
