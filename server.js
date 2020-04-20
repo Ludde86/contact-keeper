@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // variable for the port, used for production or for development
-const PORT = process.env.PORT || 5000;
+// const PORT = process.env.PORT || 5000;
 
 // add port to listen on
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen((PORT = process.env.PORT || 5000), () => console.log(`Server started on port ${PORT}`));
