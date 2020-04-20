@@ -11,6 +11,9 @@ const app = express();
 // here we bring in the connection to the database
 const connectDB = require('./config/db');
 
+// default node.js module -> deal with file path
+const path = require('path');
+
 // connect database
 connectDB();
 
@@ -22,12 +25,24 @@ app.use(express.json({ extended: false })); // extended: false -> will be parsed
 // add an endpoint for the get request
 // -> this takes an arrow function with a request and response object
 // -> add a response, for this request (we will be sending a json object as a response)
-app.get('/', (req, res) => res.json({ msg: 'Welcome to the ContactKeeper API' }));
+// app.get('/', (req, res) => res.json({ msg: 'Welcome to the ContactKeeper API' }));
 
 // bring in (define) route components
 app.use('/api/users', require('./routes/users'));
 app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/auth', require('./routes/auth'));
+
+// serve static assets in production (serv react in production)
+// make sure it's production
+if (process.env.NODE_ENV === 'production') {
+	// -> if in production
+	// set static folder
+	app.use(express.static('client/build')); // -> load the static folder (the react build folder)
+
+	// route to anything except defined router (users, contacts, auth)
+	// -> if we hit the home page, load the index.html (inside the client build folder)
+	app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
+}
 
 // variable for the port, used for production or for development
 const PORT = process.env.PORT || 5000;
