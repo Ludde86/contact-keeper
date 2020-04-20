@@ -37,7 +37,7 @@ app.use('/api/auth', require('./routes/auth'));
 if (process.env.NODE_ENV === 'production') {
 	// -> if in production
 	// set static folder
-	app.use(express.static('client/build')); // -> load the static folder (the react build folder)
+	app.use(express.static('/client/build')); // -> load the static folder (the react build folder)
 
 	// route to anything except defined router (users, contacts, auth)
 	// -> if we hit the home page, load the index.html (inside the client build folder)
