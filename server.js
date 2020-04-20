@@ -5,14 +5,14 @@
 // create basic express server (we import express this way, without babel, commonJS in JS, ES6 modules in React)
 const express = require('express');
 
-// initialize express
-const app = express();
-
 // here we bring in the connection to the database
 const connectDB = require('./config/db');
 
 // default node.js module -> deal with file path
 const path = require('path');
+
+// initialize express
+const app = express();
 
 // connect database
 connectDB();
