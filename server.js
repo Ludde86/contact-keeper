@@ -29,8 +29,8 @@ app.use(express.json({ extended: false })); // extended: false -> will be parsed
 
 // bring in (define) route components
 app.use('/api/users', require('./routes/users'));
-app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/contacts', require('./routes/contacts'));
 
 // serve static assets in production (serv react in production)
 // make sure it's production
@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // variable for the port, used for production or for development
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 // add port to listen on
-app.listen(port, () => console.log(`Server started on port ${port}`));
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
